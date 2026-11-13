@@ -1,0 +1,33 @@
+/* Portable canvas editor. Coordinates are percentages of the slide. */
+.slide{position:relative;box-sizing:border-box;aspect-ratio:16/9;width:min(100%,calc((100vh - 100px)*16/9));height:auto;min-height:0;margin:auto;overflow:hidden}
+.canvas-layer{position:absolute;inset:0;pointer-events:none;z-index:3}
+.canvas-element{position:absolute;pointer-events:auto;box-sizing:border-box;overflow:hidden;line-height:1.4;white-space:pre-wrap}
+.canvas-element>img,.canvas-element>iframe{display:block;width:100%;height:100%;object-fit:contain;border:0}
+.canvas-element.text{padding:8px}.canvas-element.widget,.canvas-element.html{background:#fff;border:1px solid #d2dfe3;border-radius:10px;padding:12px}
+.canvas-element.html{padding:0}.canvas-element button{font:inherit;padding:5px 10px}.canvas-element input[type=range]{width:95%}.widget-label{font-size:.8em;color:#607986;margin-bottom:8px}.widget-value{font-size:1.4em;display:block;margin:8px 0}.widget-tabs{display:flex;gap:6px;flex-wrap:wrap}.widget-body{margin-top:12px}.widget-tabs button[aria-selected=true]{background:#d9eeec}
+.canvas-element.edit-selected{outline:2px solid #258c86;outline-offset:2px}.editing .canvas-element{cursor:move;outline:1px dashed #91b8b5;touch-action:none}.editing .canvas-element :is(iframe,input,button){pointer-events:none}.editing .canvas-element::before{content:attr(data-label);position:absolute;top:0;left:0;background:#255c70;color:white;padding:2px 5px;font-size:10px;z-index:4}.resize-handle{display:none}.editing .resize-handle{display:block;position:absolute;right:0;bottom:0;width:17px;height:17px;background:#258c86;border:2px solid white;cursor:nwse-resize;z-index:8}.editing .fragment{visibility:visible!important;opacity:1!important;transform:none!important}
+#classMenu{position:fixed;top:47px;right:24px;z-index:30;background:white;border:1px solid #d6e0e3;border-radius:10px;box-shadow:0 10px 40px #16384322;padding:10px;min-width:180px}#classMenu button{display:block;width:100%;text-align:left;padding:10px}
+#editorPanel{position:fixed;right:14px;top:58px;width:270px;max-height:calc(100vh - 132px);overflow:auto;z-index:18;background:#fffffff5;border:1px solid #c8dbde;border-radius:12px;box-shadow:0 10px 35px #16384320;padding:14px;font-size:13px}#editorPanel h3{font-size:15px;margin:0 0 10px}#editorPanel label{display:block;margin:8px 0}#editorPanel input:not([type=checkbox]):not([type=color]),#editorPanel select,#editorPanel textarea{width:100%;box-sizing:border-box;font:inherit;padding:6px;border:1px solid #c4d6dc;border-radius:5px}#editorPanel textarea{min-height:85px}#editorPanel .editor-row{display:flex;gap:8px;align-items:center;margin:8px 0;flex-wrap:wrap}#editorPanel .editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}#editorPanel button{font-size:12px;padding:6px 9px}#editorPanel small{color:#607986;line-height:1.5;display:block}#saveState{color:#276e67;min-height:2em;margin-top:8px;overflow-wrap:anywhere}#editorPanel fieldset{border:0;border-top:1px solid #d9e4e6;margin:12px 0 0;padding:10px 0 0}#editorPanel legend{color:#627d88}#settingsDialog label{display:block;margin:15px 0}#settingsDialog input:not([type=checkbox]){display:block;width:100%;padding:8px;box-sizing:border-box}#settingsDialog{max-width:480px}#settingsDialog p{font-size:14px;line-height:1.7}
+[hidden]{display:none!important}.toolbar .fs-hide,.bottom .fs-hide{transition:opacity .22s ease,transform .22s ease,visibility 0s .22s}.presenting .fs-hide{opacity:0;transform:translateY(-12px);visibility:hidden;pointer-events:none}.presenting .toolbar{background:transparent;border-color:transparent}.presenting #editorPanel,.presenting #classMenu{display:none}.presenting .bottom .progress,.presenting #sectionLabel{visibility:hidden}.toolbar nav{display:flex;align-items:center;gap:3px}.toolbar{position:relative;z-index:20}.image-error{background:#fff3ec;color:#853c20;font-size:13px;padding:8px}
+@media(max-width:850px){.slide{width:100%;aspect-ratio:16/9}.toolbar{padding:4px 10px}.brand{max-width:25%;overflow:hidden;white-space:nowrap}.toolbar nav button{font-size:11px;padding:6px}.bottom{position:fixed;bottom:0;width:100%;box-sizing:border-box}#editorPanel{width:240px}}
+@media print{.canvas-element{break-inside:avoid}.canvas-layer{z-index:3}.resize-handle,#editorPanel,#classMenu,#settingsDialog{display:none!important}.print-slide{position:relative}.canvas-element.widget{font-size:14px}.canvas-element button,.canvas-element input{display:none}.canvas-element iframe{display:none}.canvas-element{outline:none!important}}
+
+.editing #stage{padding-right:300px}.editing .slide{width:min(100vw,calc((100vh - 100px)*16/9));transform:scale(var(--edit-scale,1));transform-origin:top left;margin-left:0;max-height:none}
+@media print{@page{size:320mm 180mm;margin:0}.print-slide{height:180mm}.notes-page{min-height:180mm;height:auto}}
+
+/* The same inspector edits original Markdown text and movable text boxes. */
+.editing [data-source-text]{cursor:text;outline:1px dashed transparent;outline-offset:3px}
+.editing [data-source-text]:hover{outline-color:#91b8b5}
+.editing [data-source-text].source-selected{outline:2px solid #258c86;background:#e6f4f150}
+.canvas-element.text{overflow-wrap:anywhere;white-space:normal}
+.text-content{white-space:pre-wrap;overflow-wrap:anywhere;min-width:0;line-height:1.75}
+.text-content code{font-size:.9em;background:#edf1f3;border-radius:3px;padding:0 3px}
+.editing .canvas-element.text::before{display:none}
+.editing .canvas-element.text.text-overflow{outline-color:#bb642e}
+#textOverflow{color:#9b4c25!important;margin:8px 0}
+#selectionGroup{scroll-margin-top:10px}#elementContent{min-height:115px!important;line-height:1.55}
+@media print{[data-source-text]{outline:none!important}.text-content{white-space:pre-wrap;overflow-wrap:anywhere}}
+
+#editorPanel{display:flex;flex-direction:column;overflow:hidden}#editorPanel>h3,#editorPanel>small,#editorPanel>.editor-row,#saveState{flex-shrink:0}#editorScroll{overflow-y:auto;min-height:0;padding:0 2px 4px}#editorScroll #selectionGroup{scroll-margin-top:0}.editing .fragment{transition:none!important}
+
+.source-resize{display:none}.editing [data-source-text]{position:relative;cursor:move;touch-action:none}.editing .source-resize{display:block;position:absolute;right:0;bottom:0;width:14px;height:14px;background:#258c86;cursor:nwse-resize}.editing [data-source-text]{box-sizing:border-box}@media print{.source-resize{display:none!important}}

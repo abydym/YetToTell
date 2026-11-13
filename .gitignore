@@ -1,0 +1,17 @@
+.venv/
+.local/
+__pycache__/
+*.pyc
+*.log
+*.pid
+lesson/exports/
+lesson/dist/assets/
+lesson/dist/content.js
+lesson/content.json
+lesson/build-info.json
+lesson/*教师专用.txt
+lesson/*路线.txt
+课件.html
+preview.png
+tests/output/
+.validate-course.md
